@@ -1,5 +1,8 @@
 #ifndef WEATHER_H
 #define WEATHER_H
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct
 {
@@ -10,7 +13,7 @@ typedef struct
     char date[11]; // yyyy/mm/dd - 10 characters + null character
 } Weather;
 
-void loadData();
+Weather *loadData(int lines);
 void searchData();
 void sortData();
 void saveData();
