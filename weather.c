@@ -1,5 +1,6 @@
 #include <weather.h>
 
+// Loads the entries of the weatherData.csv file into the weather data struct array and returns the array.
 Weather *loadData(int numElements)
 {
     FILE *file = fopen("weatherData.csv", "r");
@@ -31,8 +32,16 @@ Weather *loadData(int numElements)
     return data;
 }
 
+// Asks the user what field they want to search and then what specifcally they want to search, and prints the search.
 void searchData(Weather *data, int numElements)
 {
+    FILE *file = fopen("searchResults.txt", "w");
+    if (file == NULL)
+    {
+        printf("Could not open file\n");
+        exit(1);
+    }
+
     int choice;
     char buffer[1024];
 
@@ -53,7 +62,7 @@ void searchData(Weather *data, int numElements)
         {
             // If the users string matches the city in a element of the weather data array then print that elemnet.
             if (strcmp(data[i].city, buffer) == 0)
-                printf("%s %.1fF %.1fF %.1fin %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
+                fprintf("City: %s High: %.1fF Low: %.1fF Precipitation: %.1fin Date: %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
         }
         break;
     case 2:
@@ -68,7 +77,7 @@ void searchData(Weather *data, int numElements)
         {
             // If the users high temperature matches the high temperature element then print the whole weather element
             if (data[i].hTemp == num)
-                printf("%s %.1fF %.1fF %.1fin %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
+                fprintf("City: %s High: %.1fF Low: %.1fF Precipitation: %.1fin Date: %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
         }
         break;
         // For case 3 and 4 repeat what was done in case 2. For case 5 repeat what was done in case 1.
@@ -80,7 +89,7 @@ void searchData(Weather *data, int numElements)
         for (int i = 0; i < numElements; i++)
         {
             if (data[i].lTemp == num)
-                printf("%s %.1fF %.1fF %.1fin %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
+                fprintf("City: %s High: %.1fF Low: %.1fF Precipitation: %.1fin Date: %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
         }
         break;
     case 4:
@@ -91,7 +100,7 @@ void searchData(Weather *data, int numElements)
         for (int i = 0; i < numElements; i++)
         {
             if (data[i].precipitation == num)
-                printf("%s %.1fF %.1fF %.1fin %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
+                fprintf("City: %s High: %.1fF Low: %.1fF Precipitation: %.1fin Date: %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
         }
         break;
     case 5:
@@ -101,22 +110,94 @@ void searchData(Weather *data, int numElements)
         for (int i = 0; i < numElements; i++)
         {
             if (strcmp(data[i].date, buffer) == 0)
-                printf("%s %.1fF %.1fF %.1fin %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
+                fprintf("City: %s High: %.1fF Low: %.1fF Precipitation: %.1fin Date: %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
         }
         break;
     default:
         printf("Please choose a number 1-5.\n");
     }
+    fclose(file);
 }
 
-void sortData()
+// Comparison function for uisng the quick sort function. Returns a -1, 0, or 1 depending on if two elements should be behind, equal, or ahead of another respivtively, while also considering if the order is ascending or descending.
+
+// These will be defined based on user input in the main function.
+int field;
+char order;
+int compare(const void *a, const void *b)
 {
+    Weather *weather1 = (Weather *)a;
+    Weather *weather2 = (Weather *)b;
+
+    float val1;
+    float val2;
+    char charVal1;
+    char charVal2;
+
+    switch (field)
+    {
+    case 1:
+        return strcmp(weather1->city, weather2->city);
+    case 2:
+        val1 = weather1->hTemp;
+        val2 = weather2->hTemp;
+        break;
+    case 3:
+        val1 = weather1->lTemp;
+        val2 = weather2->lTemp;
+        break;
+    case 4:
+        val1 = weather1->precipitation;
+        val2 = weather2->precipitation;
+        break;
+    default:
+        return 0;
+    }
+
+    if (order == 'a')
+    {
+        if (val1 < val2)
+        {
+            return -1;
+        }
+        else if (val1 > val2)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    if (order == 'd')
+    {
+        if (val1 < val2)
+        {
+            return 1;
+        }
+        else if (val1 > val2)
+        {
+            return -1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }
 
-void saveData()
+void sortData(Weather *data, int numElements, int saveElements)
 {
-}
-
-void freeMemory()
-{
+    qsort(data, numElements, sizeof(Weather), compare);
+    FILE *file = fopen("sortedResults.txt", "w");
+    if (file == NULL)
+    {
+        printf("Could not open file\n");
+        exit(1);
+    }
+    for (int i = 0; i < numElements; i++)
+    {
+        fprintf("City: %s High: %.1fF Low: %.1fF Precipitation: %.1fin Date: %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
+    }
 }

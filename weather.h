@@ -15,7 +15,6 @@ typedef struct
 
 Weather *loadData(int numElements);
 void searchData(Weather *data, int numElements);
-void sortData();
-void saveData();
-void freeMemory();
+int compare(const void *a, const void *b);
+void sortData(Weather *data, int numElements);
 #endif
