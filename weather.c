@@ -143,8 +143,8 @@ void setField()
 // Comparison function for uisng the quick sort function. Returns a -1, 0, or 1 depending on if two elements should be behind, equal, or ahead of another respivtively, while also considering if the order is ascending or descending. Takes two const void pointers which will be type casted to be weather pointers. This is for qsort.
 int compare(const void *a, const void *b)
 {
-    Weather *weather1 = a;
-    Weather *weather2 = b;
+    const Weather *weather1 = a;
+    const Weather *weather2 = b;
 
     float val1;
     float val2;
@@ -201,6 +201,10 @@ int compare(const void *a, const void *b)
         {
             return 0;
         }
+    }
+    else
+    {
+        return 0;
     }
 }
 
