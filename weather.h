@@ -17,6 +17,5 @@ Weather *loadData(int numElements);
 void searchData(Weather *data, int numElements);
 void sortData();
 void saveData();
-void ui();
 void freeMemory();
 #endif

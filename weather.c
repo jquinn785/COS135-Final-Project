@@ -117,10 +117,6 @@ void saveData()
 {
 }
 
-void ui()
-{
-}
-
 void freeMemory()
 {
 }
