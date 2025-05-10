@@ -10,7 +10,7 @@ typedef struct
     double hTemp;
     double lTemp;
     double precipitation;
-    char date[11]; // yyyy/mm/dd - 10 characters + null character
+    char date[12]; // yyyy/mm/dd - 10 characters + null character + new line charcter
 } Weather;
 
 Weather *loadData(int numElements);
