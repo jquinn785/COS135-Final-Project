@@ -1,5 +1,4 @@
-#include <main.h>
-#include <weather.h>
+#include "weather.h"
 
 #define NUM_ELEMENTS 10
 
@@ -37,4 +36,5 @@ int main(int argc, char *argv[])
         }
     }
     free(data);
+    return 1;
 }
