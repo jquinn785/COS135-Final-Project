@@ -36,4 +36,5 @@ int main(int argc, char *argv[])
             printf("Enter a number from 1-2. ");
         }
     }
+    free(data);
 }

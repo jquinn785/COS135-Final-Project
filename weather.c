@@ -64,7 +64,7 @@ void searchData(Weather *data, int numElements)
         {
             // If the users string matches the city in a element of the weather data array then print that elemnet.
             if (strcmp(data[i].city, buffer) == 0)
-                fprintf("City: %s High: %.1f F Low: %.1f F Precipitation: %.1f in Date: %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
+                fprintf(file, "City: %s High: %.1f F Low: %.1f F Precipitation: %.1f in Date: %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
         }
         break;
     case 2:
@@ -79,7 +79,7 @@ void searchData(Weather *data, int numElements)
         {
             // If the users high temperature matches the high temperature element then print the whole weather element
             if (data[i].hTemp == num)
-                fprintf("City: %s High: %.1f F Low: %.1f F Precipitation: %.1f in Date: %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
+                fprintf(file, "City: %s High: %.1f F Low: %.1f F Precipitation: %.1f in Date: %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
         }
         break;
         // For case 3 and 4 repeat what was done in case 2. For case 5 repeat what was done in case 1.
@@ -91,7 +91,7 @@ void searchData(Weather *data, int numElements)
         for (int i = 0; i < numElements; i++)
         {
             if (data[i].lTemp == num)
-                fprintf("City: %s High: %.1f F Low: %.1f F Precipitation: %.1f in Date: %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
+                fprintf(file, "City: %s High: %.1f F Low: %.1f F Precipitation: %.1f in Date: %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
         }
         break;
     case 4:
@@ -102,7 +102,7 @@ void searchData(Weather *data, int numElements)
         for (int i = 0; i < numElements; i++)
         {
             if (data[i].precipitation == num)
-                fprintf("City: %s High: %.1f F Low: %.1f F Precipitation: %.1f in Date: %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
+                fprintf(file, "City: %s High: %.1f F Low: %.1f F Precipitation: %.1f in Date: %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
         }
         break;
     case 5:
@@ -112,7 +112,7 @@ void searchData(Weather *data, int numElements)
         for (int i = 0; i < numElements; i++)
         {
             if (strcmp(data[i].date, buffer) == 0)
-                fprintf("City: %s High: %.1f F Low: %.1f F Precipitation: %.1f in Date: %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
+                fprintf(file, "City: %s High: %.1f F Low: %.1f F Precipitation: %.1f in Date: %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
         }
         break;
     default:
@@ -215,9 +215,9 @@ void sortData(Weather *data, int numElements, int saveElements)
             printf("Could not open file\n");
             exit(1);
         }
-        for (int i = 0; i < saveElements; i++)
+        for (Weather *ptr = data; ptr < data + saveElements; ptr++)
         {
-            fprintf("City: %s High: %.1f F Low: %.1f F Precipitation: %.1f in Date: %s\n", data[i].city, data[i].hTemp, data[i].lTemp, data[i].precipitation, data[i].date);
+            fprintf(file, "City: %s High: %.1f F Low: %.1f F Precipitation: %.1f in Date: %s\n", ptr->city, ptr->hTemp, ptr->lTemp, ptr->precipitation, ptr->date);
         }
         fclose(file);
     }
