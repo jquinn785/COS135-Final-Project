@@ -121,9 +121,24 @@ void searchData(Weather *data, int numElements)
     fclose(file);
 }
 
-// These will be defined based on user input in the main function.
-int field;
 char order;
+int field;
+
+// Allows the user to set the order for sorting. This will be called from the main function.
+void setOrder()
+{
+    printf("Do you want to sort in ascending or descending order? ");
+    scanf("%c", &order);
+}
+
+// Allows the user to set the field for sorting. This will be called from the main function.
+void setField()
+{
+    printf("Sort by:\n");
+    printf("1. City\n2. High Temp\n3. Low Temp\n4. Precipitation\n");
+    printf("Enter your choice: ");
+    scanf("%d", &field);
+}
 // Comparison function for uisng the quick sort function. Returns a -1, 0, or 1 depending on if two elements should be behind, equal, or ahead of another respivtively, while also considering if the order is ascending or descending. Takes two const void pointers which will be type casted to be weather pointers. This is for qsort.
 int compare(const void *a, const void *b)
 {
