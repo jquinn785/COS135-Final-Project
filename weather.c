@@ -1,4 +1,4 @@
-#include <weather.h>
+#include "weather.h"
 
 // This file contains all indicual functions required for the program to run. A function to laod the data, a function to search the data, and the functions requried to sort the data.
 
@@ -45,6 +45,7 @@ void searchData(Weather *data, int numElements)
     }
 
     int choice;
+    float num;
     char buffer[1024];
 
     printf("Search by:\n");
@@ -74,7 +75,7 @@ void searchData(Weather *data, int numElements)
         // Set the null terminator at the first instance of the newline character
         buffer[strcspn(buffer, "\n")] = 0;
         // Convert the char array to a float
-        float num = atof(buffer);
+        num = atof(buffer);
         for (int i = 0; i < numElements; i++)
         {
             // If the users high temperature matches the high temperature element then print the whole weather element
@@ -87,7 +88,7 @@ void searchData(Weather *data, int numElements)
         printf("Enter low temperature: ");
         fgets(buffer, sizeof(buffer), stdin);
         buffer[strcspn(buffer, "\n")] = 0;
-        float num = atof(buffer);
+        num = atof(buffer);
         for (int i = 0; i < numElements; i++)
         {
             if (data[i].lTemp == num)
@@ -98,7 +99,7 @@ void searchData(Weather *data, int numElements)
         printf("Enter precipitation: ");
         fgets(buffer, sizeof(buffer), stdin);
         buffer[strcspn(buffer, "\n")] = 0;
-        float num = atof(buffer);
+        num = atof(buffer);
         for (int i = 0; i < numElements; i++)
         {
             if (data[i].precipitation == num)
