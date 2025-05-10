@@ -70,12 +70,8 @@ void searchData(Weather *data, int numElements)
         break;
     case 2:
         printf("Enter high temperature: ");
-        // Read the user input
-        fgets(buffer, sizeof(buffer), stdin);
-        // Set the null terminator at the first instance of the newline character
-        buffer[strcspn(buffer, "\n")] = 0;
-        // Convert the char array to a float
-        num = atof(buffer);
+        // Read the user input and set it to the float num
+        scanf("%f", &num);
         for (int i = 0; i < numElements; i++)
         {
             // If the users high temperature matches the high temperature element then print the whole weather element
@@ -86,9 +82,7 @@ void searchData(Weather *data, int numElements)
         // For case 3 and 4 repeat what was done in case 2. For case 5 repeat what was done in case 1.
     case 3:
         printf("Enter low temperature: ");
-        fgets(buffer, sizeof(buffer), stdin);
-        buffer[strcspn(buffer, "\n")] = 0;
-        num = atof(buffer);
+        scanf("%f", &num);
         for (int i = 0; i < numElements; i++)
         {
             if (data[i].lTemp == num)
@@ -97,9 +91,7 @@ void searchData(Weather *data, int numElements)
         break;
     case 4:
         printf("Enter precipitation: ");
-        fgets(buffer, sizeof(buffer), stdin);
-        buffer[strcspn(buffer, "\n")] = 0;
-        num = atof(buffer);
+        scanf("%f", &num);
         for (int i = 0; i < numElements; i++)
         {
             if (data[i].precipitation == num)
@@ -109,7 +101,7 @@ void searchData(Weather *data, int numElements)
     case 5:
         printf("Enter date (yyyy/mm/dd): ");
         fgets(buffer, sizeof(buffer), stdin);
-        buffer[strcspn(buffer, "\n")] = 0;
+        buffer[strcspn(buffer, "\n") + 1] = 0;
         for (int i = 0; i < numElements; i++)
         {
             if (strcmp(data[i].date, buffer) == 0)
