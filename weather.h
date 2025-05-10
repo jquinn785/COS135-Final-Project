@@ -13,8 +13,10 @@ typedef struct
     char date[11]; // yyyy/mm/dd - 10 characters + null character
 } Weather;
 
-Weather *loadData(int lines);
-void searchData();
+Weather *loadData(int numElements);
+void searchData(Weather *data, int numElements);
 void sortData();
 void saveData();
+void ui();
+void freeMemory();
 #endif
